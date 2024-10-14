@@ -1,5 +1,7 @@
+"use client";  // Indicate this is a client-side component in Next.js
+
 import React, { useState } from "react";
-import { auth } from "../../firebase";
+import { auth } from "../../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import {
   TextField,
@@ -14,7 +16,7 @@ import {
   Box,
   Card,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";  // Use Next.js' useRouter
 
 const LightModeIcon = "/logo_dark.png";
 const DarkModeIcon = "/logo_light.png";
@@ -25,7 +27,7 @@ const SignInForm = ({ theme, setTheme }) => {
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const navigate = useNavigate();
+  const router = useRouter();  // Use Next.js' router
 
   const handleToggleDarkMode = () => {
     setTheme(!theme);
@@ -39,7 +41,7 @@ const SignInForm = ({ theme, setTheme }) => {
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         setSuccess("Login successful!");
-        navigate("/Dashboard");
+        router.push("../dashboard");  // Use Next.js' router to navigate
       })
       .catch((err) => {
         setError("Login failed: " + err.message);
@@ -77,17 +79,6 @@ const SignInForm = ({ theme, setTheme }) => {
           >
             Log in
           </Typography>
-          {/* <IconButton onClick={handleToggleDarkMode}>
-          <LightModeIcon />
-          </IconButton>
-          <IconButton onClick={handleToggleDarkMode}>
-          <DarkModeIcon />
-          </IconButton> */}
-
-          {/* text form */}
-          {/* <IconButton onClick={handleToggleDarkMode}>
-            {theme ? "Light Mode" : "Dark Mode"}
-          </IconButton> */}
 
           <IconButton onClick={handleToggleDarkMode}>
             {theme ? (
@@ -193,7 +184,7 @@ const SignInForm = ({ theme, setTheme }) => {
                 >
                   Remember me
                 </Typography>
-              } // Increased label size
+              }
             />
             <Link
               href="#"
@@ -203,7 +194,6 @@ const SignInForm = ({ theme, setTheme }) => {
               <Typography style={{ fontSize: "16px" }}>
                 Forgot your password?
               </Typography>{" "}
-              {/* Increased font size */}
             </Link>
           </div>
           <Button
