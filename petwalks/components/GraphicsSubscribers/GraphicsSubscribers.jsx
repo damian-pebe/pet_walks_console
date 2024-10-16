@@ -15,8 +15,8 @@ export default function GraphicsSubscribers() {
   return (
     <div className="mt-5">
       <p className="text-3xl mb-3">24.15</p>
-      <div className="flex gap-x-5 mb-5"> {/* Corrected 'fex' to 'flex' */}
-        <div className="flex items-center gap-2 px-3 text-md bg-[#16C8C7] text-white rounded-xl w-fit">
+      <div className="flex gap-x-5 mb-5">
+        <div className="flex items-center gap-2 px-3 text-md bg-[#16C8C7] text-white rounded-xl w-fit ">
           8,5%
           <TrendingUp strokeWidth={1} className="h-4 w-4" />
         </div>
@@ -44,7 +44,7 @@ export default function GraphicsSubscribers() {
             </defs>
             <XAxis dataKey="year" />
             <YAxis />
-            <Tooltip />  {/* Corrected spelling */}
+            <Tooltip /> 
             <Area
               type="monotone"
               dataKey="newCustomers"
