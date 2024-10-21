@@ -1,4 +1,4 @@
-"use client";  // Indicate this is a client-side component in Next.js
+"use client"; // Indicate this is a client-side component in Next.js
 
 import React, { useState } from "react";
 import { auth } from "../../../firebase";
@@ -16,18 +16,19 @@ import {
   Box,
   Card,
 } from "@mui/material";
-import { useRouter } from "next/navigation";  // Use Next.js' useRouter
-
-const LightModeIcon = "/logo_dark.png";
-const DarkModeIcon = "/logo_light.png";
+import { useRouter } from "next/navigation"; // Use Next.js' useRouter
+import { MoonIcon, SunIcon } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const SignInForm = ({ theme, setTheme }) => {
+  const { toast } = useToast()
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const router = useRouter();  // Use Next.js' router
+  const router = useRouter(); // Use Next.js' router
 
   const handleToggleDarkMode = () => {
     setTheme(!theme);
@@ -41,11 +42,16 @@ const SignInForm = ({ theme, setTheme }) => {
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         setSuccess("Login successful!");
-        router.push("../dashboard");  // Use Next.js' router to navigate
+        toast({
+          title: "Sign In successful",
+          description: "Welcome to Pet Walks Console",
+        });
       })
       .catch((err) => {
         setError("Login failed: " + err.message);
-      });
+        toast({
+          title: "Sign In to Pet Walks Console failed",
+        });      });
   };
 
   return (
@@ -72,19 +78,45 @@ const SignInForm = ({ theme, setTheme }) => {
             alignItems: "center",
           }}
         >
+          <img
+            src="/images/logo192.png"
+            width="60"
+            height="60"
+            alt="Logo"
+            style={{ objectFit: "cover" }}
+          />
           <Typography
-            variant="h3"
+            variant="h2"
             align="center"
             color={theme ? "#F7F7F7" : "#1C1C1C"}
           >
-            Log in
+            SIGN IN
           </Typography>
 
-          <IconButton onClick={handleToggleDarkMode}>
+          <IconButton
+            onClick={handleToggleDarkMode}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              cursor: "pointer", // Change cursor to pointer on hover
+              transition: "color 0.3s ease", // Smooth transition for color change
+            }}
+          >
             {theme ? (
-              <img src={LightModeIcon} width="24" height="24" />
+              <SunIcon
+                width={34}
+                height={34}
+                color="yellow"
+                style={{ transition: "fill 0.3s ease" }}
+              />
             ) : (
-              <img src={DarkModeIcon} width="24" height="24" />
+              <MoonIcon
+                width={24}
+                height={24}
+                color="black"
+                fill="black"
+                style={{ transition: "fill 0.3s ease" }}
+              />
             )}
           </IconButton>
         </div>

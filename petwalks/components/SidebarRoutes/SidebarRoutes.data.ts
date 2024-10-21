@@ -25,7 +25,7 @@ export const dataToolsSidebar = [
     },{
         icon: BarChart4,
         label: "Analytics",
-        href: "/analytics"
+        href: "/Analytics"
     },
 ]
 

@@ -27,7 +27,7 @@ export function HeaderCompanies() {
               Create and configure your Customer
             </DialogDescription>
           </DialogHeader>
-          <FormCreateCustomer/>
+          {/* <FormCreateCustomer/> */}
         </DialogContent>
       </Dialog>
     </div>

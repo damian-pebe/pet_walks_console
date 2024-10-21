@@ -1,5 +1,5 @@
-import CardSummary from "./CardSummary/CardSummary";
-import { LastCustomers } from "../../../../components/LastCustomers/index";
+import CardSummary from "../../../components/CardSummary/CardSummary";
+import { LastCustomers } from "../../../components/LastCustomers/index";
 import { UsersRound, Waypoints, BookOpenCheck } from "lucide-react";
 import Walkdistributor from "@/components/Walkdistributor/Walkdistributor";
 import { TotalSuscriber } from "@/components/TotalSuscriber";

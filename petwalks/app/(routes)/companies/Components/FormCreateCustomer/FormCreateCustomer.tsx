@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { fontCreateCustomerProps } from "./FormCreateCustomer.types";
 import { useState } from "react";
+import { UploadIcon } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -85,7 +86,7 @@ export function FormCreateCustomer(props: fontCreateCustomerProps) {
                 <FormItem>
                   <FormLabel>Website</FormLabel>
                   <FormControl>
-                    <Input placeholder="Website..." {...field} />
+                    <Input placeholder="petwalks.com..." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -98,7 +99,7 @@ export function FormCreateCustomer(props: fontCreateCustomerProps) {
                 <FormItem>
                   <FormLabel>Phone</FormLabel>
                   <FormControl>
-                    <Input placeholder="Phone..." {...field} />
+                    <Input placeholder="Phone..." type="number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -111,14 +112,19 @@ export function FormCreateCustomer(props: fontCreateCustomerProps) {
                 <FormItem>
                   <FormLabel>Profile image</FormLabel>
                   <FormControl>
-                    <Input placeholder="Profile image..." {...field} />
+                    {/* <Input placeholder="" type="image" {...field} /> */}
+                    <UploadIcon
+                      className="w-16 h-16 bg-slate-600/10 text-slate-800 rounded-lg outline-4 hover:shadow-sm p-3 "
+                      // {...field}
+                      // TODO make the upload method
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
-          <Button type="submit">Submit</Button>
+          <Button type="submit" disabled={!isValid}>Submit</Button>
         </form>
       </Form>
     </div>

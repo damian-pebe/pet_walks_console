@@ -3,15 +3,15 @@ import React, { useState } from "react";
 import SignInForm from "./SignInForm";
 import { Typography } from "@mui/material";
 
+
 const SignIn = () => {
   const [theme, setTheme] = useState(true);
   const darkImage =
-    "https://img.freepik.com/free-vector/gradient-black-background-with-cubes_23-2149152315.jpg?t=st=1728462656~exp=1728466256~hmac=6d658f7dc8d2d02fb351a85dbff20b4685e3784dd91fabc2d214be40689256b8&w=1060";
+    "/images/dark_mode.png";
   const lightImage =
-    "https://img.freepik.com/free-vector/abstract-geometric-wireframe-background_52683-59421.jpg?w=1060&t=st=1728456716~exp=1728457316~hmac=7387be4c45bc444d0df7a25aec4c3eacd6f4ace4e6da15665165cff806e03602";
+    "/images/light_mode.png";
 
-  const logoDark = "/logo_dark.png";
-  const logoLight = "/logo_light.png";
+
 
   return (
     <div
@@ -21,12 +21,13 @@ const SignIn = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        flexWrap: "wrap", // Allows wrapping for small screens
         backgroundImage: `url(${theme ? darkImage : lightImage})`,
-        // backgroundImage: `url(${darkImage})`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
-        transition: "background-image 4s ease",
+        transition: "background-image 1s ease-in-out",
+        padding: "20px", // Adds padding for mobile devices
       }}
     >
       {/* Left-side content (light mode) */}
@@ -35,11 +36,13 @@ const SignIn = () => {
           style={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "flex-start",
+            alignItems: "center",
             marginRight: "40px",
-            transition: "all 0.5s ease-in-out",
+            transition: "all 2s ease-in-out",
             opacity: 1,
             transform: "translateX(0)",
+            textAlign: "center", // Center content on smaller screens
+            maxWidth: "100%", // Allow it to fill the width on smaller screens
           }}
         >
           <Typography
@@ -48,7 +51,7 @@ const SignIn = () => {
             style={{
               fontWeight: 700,
               padding: "20px 0",
-              color: "#333333",
+              color: "#000000",
               fontSize: "2.5rem",
               letterSpacing: "1.5px",
               lineHeight: "1.2",
@@ -57,33 +60,24 @@ const SignIn = () => {
             Welcome to Pet Walks Console
           </Typography>
 
-          <img
-            src={logoLight}
-            alt="Light Logo"
-            style={{
-              width: "260px",
-              maxHeight: "260px",
-              objectFit: "contain",
-              margin: "0 auto",
-              transition: "transform 3s ease-in-out, opacity 3s ease-in-out",
-              opacity: 1,
-              transform: "scale(1)",
-            }}
-          />
+        
         </div>
       )}
 
-<SignInForm theme={theme} setTheme={setTheme} />
+      <SignInForm theme={theme} setTheme={setTheme} />
+
       {theme && (
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "flex-end",
+            alignItems: "center",
             marginLeft: "40px",
-            transition: "all 0.5s ease-in-out",
+            transition: "all 2s ease-in-out",
             opacity: 1,
             transform: "translateX(0)",
+            textAlign: "center", // Center content on smaller screens
+            maxWidth: "100%", // Allow it to fill the width on smaller screens
           }}
         >
           <Typography
@@ -100,22 +94,27 @@ const SignIn = () => {
           >
             Welcome to Pet Walks Console
           </Typography>
-
-          <img
-            src={logoDark}
-            alt="Dark Logo"
-            style={{
-              width: "400px",
-              maxHeight: "400px",
-              objectFit: "contain",
-              margin: "0 auto",
-              transition: "transform 3s ease-in-out, opacity 3s ease-in-out",
-              opacity: 1,
-              transform: "scale(1)",
-            }}
-          />
         </div>
-      )} 
+      )}
+
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .SignIn {
+            flex-direction: column; // Stacks elements vertically
+          }
+          /* Dark mode: Move text above the form */
+          ${theme
+            ? `
+          .SignIn > div:last-child {
+            order: -1; /* Move the dark mode text above the form */
+          }`
+            : `
+          /* Light mode: Move text below the form */
+          .SignIn > div:first-child {
+            order: 1; /* Move the light mode text below the form */
+          }`}
+        }
+      `}</style>
     </div>
   );
 };
