@@ -1,14 +1,26 @@
 import CardSummary from "../../../components/CardSummary/CardSummary";
 import { LastCustomers } from "../../../components/LastCustomers/index";
-import { UsersRound, Waypoints, BookOpenCheck } from "lucide-react";
+import {
+  UsersRound,
+  Waypoints,
+  BookOpenCheck,
+} from "lucide-react";
 import Walkdistributor from "@/components/Walkdistributor/Walkdistributor";
 import { TotalSuscriber } from "@/components/TotalSuscriber";
 import ListIntegrations from "@/components/ListIntegrations/ListIntegrations";
 
 export default function Home() {
   return (
-    <div>
-      <h2 className="text-2xl mb-4">Dashboard tsx</h2>
+    <div >
+      <div className=" pb-8">
+
+      <div className="shadow-sm bg-background rounded-lg p-5 items-center justify-center hover:shadow-lg transition">
+        <div className="flex gap-x-2 justify-center">
+          <h1 className="text-4xl">DASHBOARD </h1>
+
+        </div>
+      </div>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-x-20">
         <CardSummary

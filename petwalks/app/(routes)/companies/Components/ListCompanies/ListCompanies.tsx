@@ -75,7 +75,7 @@ export default function ListCompanies() {
   }
 
   return (
-    <div>
+    <div className="hover:shadow-lg transition">
       <DataTable columns={columns} data={companies} />
     </div>
   );

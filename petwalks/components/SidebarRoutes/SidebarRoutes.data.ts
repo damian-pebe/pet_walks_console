@@ -1,4 +1,4 @@
-import {BarChart4, Building2, PanelsTopLeft, Settings, ShieldCheck, CircleHelpIcon, Calendar} from 'lucide-react';
+import {BarChart4, Building2, PanelsTopLeft, Settings, ShieldCheck, BadgeX, MessageCircleCodeIcon} from 'lucide-react';
 
 
 export const dataGeneralSidebar = [
@@ -10,33 +10,18 @@ export const dataGeneralSidebar = [
     icon: Building2,
     label: "Companies",
     href: "/companies"
-},{
-    icon: Calendar,
-    label: "Calendar",
-    href: "/task"
 }
 ];
 
 export const dataToolsSidebar = [
     {
-        icon: CircleHelpIcon,
-        label: "Faqs",
-        href: "/faqs"
+        icon: BadgeX,
+        label: "Reports",
+        href: "/reports"
     },{
-        icon: BarChart4,
-        label: "Analytics",
-        href: "/Analytics"
-    },
-]
-
-export const dataSupportSidebar = [
-    {
-        icon: Settings,
-        label: "Settings",
-        href: "/settings"
-    },{
-        icon: ShieldCheck,  
-        label: "Security",
-        href: "/security"
+        icon: MessageCircleCodeIcon,
+        label: "Chats",
+        href: "/chats"
     }
 ]
+

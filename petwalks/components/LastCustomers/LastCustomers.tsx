@@ -5,10 +5,10 @@ import { CustomersTable } from "../CustomersTable";
 
 export  function LastCustomers() {
   return (
-    <div className="shadow-sm bg-background rounded-lg p-5 ">
+    <div className="shadow-sm bg-background rounded-lg p-5 hover:shadow-lg transition">
       <div className="flex gap-x-2 items-center">
         <CustomIcon icon={Building} />
-        <p className="text-xl">Name customer </p>
+        <p className="text-xl">Users information </p>
       </div>
       <div>
       <CustomersTable />

@@ -1,12 +1,8 @@
-"use client"
+"use client";
 import SidebarItem from "../SidebarItem/SidebarItem";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
-import {
-  dataGeneralSidebar,
-  dataToolsSidebar,
-  dataSupportSidebar,
-} from "./SidebarRoutes.data";
+import { dataGeneralSidebar, dataToolsSidebar } from "./SidebarRoutes.data";
 export default function SidebarRoutes() {
   return (
     <div className="flex flex-col justify-between h-full">
@@ -25,26 +21,18 @@ export default function SidebarRoutes() {
           ))}
         </div>
         <Separator />
-        <div className="p-2 md:p-6">
-          <p className="text-slate-500 mb-2">SUPPORT</p>
-          {dataSupportSidebar.map((item) => (
-            <SidebarItem key={item.label} item={item} />
-          ))}
-        </div>
       </div>
 
       <div>
-        <div className="text-center p-6">
-          <Button variant="outline" className="w-full">
-            UpgradePlan
-          </Button>
-        </div>
-        <Separator/>
+        <Separator />
 
         <footer className="mt-3 p-3 text-center">
-          2024. All rights reserved
+          <h1>Everything your pet needs in one place</h1>
+          
         </footer>
+
       </div>
+
     </div>
   );
 }

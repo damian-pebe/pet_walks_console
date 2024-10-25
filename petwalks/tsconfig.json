@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/(routes)/auth/page.jsx", "app/(routes)/companies/Components/[id]", "app/(routes)/Analytics/page.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/(routes)/auth/page.jsx", "app/(routes)/companies/Components/[id]", "app/(routes)/Analytics/page.jsx", "app/(routes)/chats/Components/TableChats/TableChats.jsx", "components/GraphicsSubscribers/GraphicsSubscribers.jsx"],
   "exclude": ["node_modules"]
 }

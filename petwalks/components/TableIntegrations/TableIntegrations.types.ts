@@ -1,7 +1,7 @@
-export type TableIntegrationsProps = {
-    app: string;
-    icon: string;
-    type: "Finance" | "CRM" | "Marketplace";
-    rate: number;
-    profit: number;
-  };
+export interface Walk {
+  ownerEmail: string;
+  payMethod: string;
+  pets: number;
+  premium: boolean; // Change from string to boolean
+  price: number;
+}
