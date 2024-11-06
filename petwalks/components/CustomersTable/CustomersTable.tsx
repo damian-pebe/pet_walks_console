@@ -36,84 +36,17 @@ import {
 import { fetchUsers } from "@/firebaseFunctions"; // Adjust this import based on your project structure
 import { Users } from "./CustomersTable.types"; // Adjust the import as necessary
 import RatingStars from "@/components/RatingStars/RatingStars"; // Import your RatingStars component
-
-const columns: ColumnDef<Users>[] = [
-  {
-    accessorKey: "email",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        Email
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
-  },
-  {
-    accessorKey: "reports",
-    header: () => <div className="text-right justify-center">Reports</div>,
-    cell: ({ row }) => (
-      <div className="text-right justify-center">{row.getValue("reports")}</div>
-    ),
-  },
-  {
-    accessorKey: "averageRating",
-    header: () => (
-      <div className="text-right justify-center">Average Rating</div>
-    ),
-    // cell: ({ row }) => <div className="text-right justify-center">{row.getValue("averageRating")}</div>, // Format to 2 decimal places
-    cell: ({ row }) => (
-      <div className="flex justify-end items-center">
-        <span className="text-yellow-500">
-          <RatingStars rating={row.getValue("averageRating")} />
-        </span>
-      </div>
-    ),
-  },
-  {
-    id: "actions",
-    enableHiding: false,
-    cell: ({ row }) => {
-      const user = row.original;
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(user.email)}
-            >
-              Copy Email
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View Profile</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
-  },
-];
+import { useRouter } from "next/navigation"; // Ensure correct import for navigation
 
 export function CustomersTable() {
   const [loading, setLoading] = React.useState(true);
   const [data, setData] = React.useState<Users[]>([]); // Use Users type here
   const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  );
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+  const router = useRouter(); // Use router from next/navigation
 
-  // Fetch users data on component mount
   React.useEffect(() => {
     const loadUsers = async () => {
       try {
@@ -128,6 +61,72 @@ export function CustomersTable() {
 
     loadUsers();
   }, []);
+
+  const columns: ColumnDef<Users>[] = [
+    {
+      accessorKey: "email",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Email
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      ),
+      cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+    },
+    {
+      accessorKey: "reports",
+      header: () => <div className="text-right justify-center">Reports</div>,
+      cell: ({ row }) => (
+        <div className="text-right justify-center">{row.getValue("reports")}</div>
+      ),
+    },
+    {
+      accessorKey: "averageRating",
+      header: () => <div className="text-right justify-center">Average Rating</div>,
+      cell: ({ row }) => (
+        <div className="flex justify-end items-center">
+          <span className="text-yellow-500">
+            <RatingStars rating={row.getValue("averageRating")} />
+          </span>
+        </div>
+      ),
+    },
+    {
+      id: "actions",
+      enableHiding: false,
+      cell: ({ row }) => {
+        const user = row.original;
+
+        return (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <MoreHorizontal className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuItem
+                onClick={() => navigator.clipboard.writeText(user.email)}
+              >
+                Copy Email
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => 
+                router.push(`/ViewUser?Email=${(user.email)}`)
+              }>
+                View Profile
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        );
+      },
+    },
+  ];
 
   const table = useReactTable({
     data,

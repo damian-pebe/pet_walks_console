@@ -4,7 +4,6 @@ export interface Message {
   m?: string;
   i?: string[]; 
   f?: string;
-  v?:string;
 }
 
 export interface Chat {
@@ -13,4 +12,13 @@ export interface Chat {
   chatId: string; 
   messages: Message[]; 
   id: string;
+}
+
+
+export interface Report{
+  sender: string; 
+  reported: string;
+  reason: string; 
+  type: string;
+  chat: Chat; 
 }

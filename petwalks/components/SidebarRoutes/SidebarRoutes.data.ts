@@ -1,4 +1,4 @@
-import {BarChart4, Building2, PanelsTopLeft, Settings, ShieldCheck, BadgeX, MessageCircleCodeIcon} from 'lucide-react';
+import {BarChart4, Building2, PanelsTopLeft, Settings, ShieldCheck, BadgeX, MessageCircleCodeIcon, HeartHandshake} from 'lucide-react';
 
 
 export const dataGeneralSidebar = [
@@ -22,6 +22,11 @@ export const dataToolsSidebar = [
         icon: MessageCircleCodeIcon,
         label: "Chats",
         href: "/chats"
+    }
+    ,{
+        icon: HeartHandshake,
+        label: "Agreement",
+        href: "/Agreement"
     }
 ]
 

@@ -34,8 +34,51 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Chat, Message } from "./TableChats.types";
-import { fetchChats } from "@/firebaseFunctions";
+import { disableUserForever, disableUserTemporarily, fetchChats } from "@/firebaseFunctions";
 import ChatModal from "@/app/(routes)/chat/page";
+import { useRouter } from "next/router";
+import { useToast } from "@/hooks/use-toast";
+
+const handleLifetimeBanClick = (userEmail: string) => {
+  const router = useRouter();
+  const { toast } = useToast();
+
+  return async () => {
+    try {
+      await disableUserForever(userEmail!); 
+      toast({
+        title: "User Deleted",
+        description: `User ${userEmail} has been successfully deleted.`,
+      });
+      router.back(); 
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "There was an issue deleting the user.",
+      });
+    }
+  };
+};
+const handleDisableClick = (userEmail: string, time: number) => {
+  const router = useRouter();
+  const { toast } = useToast();
+
+  return async () => {
+    try {
+      await disableUserTemporarily(userEmail!, time); 
+      toast({
+        title: "User Deleted",
+        description: `User ${userEmail} has been successfully deleted.`,
+      });
+      router.back(); 
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "There was an issue deleting the user.",
+      });
+    }
+  };
+};
 
 export const columns: ColumnDef<Chat>[] = [
   {
@@ -72,7 +115,7 @@ export const columns: ColumnDef<Chat>[] = [
       
       // Get the first message if it exists, otherwise use "No message available"
       const message = messageObj.length > 0 
-        ? messageObj[0].m || "No message available" 
+        ? messageObj[messageObj.length-1].m || "No message available" 
         : "No message available";
   
       return (
@@ -101,32 +144,32 @@ export const columns: ColumnDef<Chat>[] = [
               <DropdownMenuLabel>Owner</DropdownMenuLabel>
               <DropdownMenuSeparator />
 
-              <DropdownMenuItem onClick={() => {}}>
+              <DropdownMenuItem onClick={() => {handleLifetimeBanClick(row.getValue("user1"))}}>
                 Lifetime ban
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => {}}>
+              <DropdownMenuItem onClick={() => {handleDisableClick(row.getValue("user1"), 30)}}>
                 1 month ban
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => {}}>
+              <DropdownMenuItem onClick={() => {handleDisableClick(row.getValue("user1"), 14)}}>
                 14 days ban
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => {}}>7 days ban</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => {}}>1 day ban</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => {handleDisableClick(row.getValue("user1"), 7)}}>7 days ban</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => {handleDisableClick(row.getValue("user1"), 1)}}>1 day ban</DropdownMenuItem>
               <DropdownMenuSeparator />
 
               <DropdownMenuLabel>Walker</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => {}}>
+              <DropdownMenuItem onClick={() => {handleLifetimeBanClick(row.getValue("user2"))}}>
                 Lifetime ban
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => {}}>
+              <DropdownMenuItem onClick={() => {handleDisableClick(row.getValue("user2"), 30)}}>
                 1 month ban
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => {}}>
+              <DropdownMenuItem onClick={() => {handleDisableClick(row.getValue("user2"), 14)}}>
                 14 days ban
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => {}}>7 days ban</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => {}}>1 day ban</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => {handleDisableClick(row.getValue("user2"), 7)}}>7 days ban</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => {handleDisableClick(row.getValue("user2"), 1)}}>1 day ban</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
